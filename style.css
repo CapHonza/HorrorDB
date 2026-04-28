@@ -1,0 +1,191 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+@font-face {
+    font-family: 'SuperMystery';
+    src: url('Font/SuperMysteryFont.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    background-color: #0a0a0a; /* Trochu hlubší černá */
+    color: #e0e0e0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+h1 {
+    font-family: 'SuperMystery', sans-serif;
+    color: #ed1c24; /* Hororová červená */
+    font-size: 4em;
+    text-shadow: 0 0 15px rgba(237, 28, 36, 0.5);
+    letter-spacing: 5px;
+}
+
+.line {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #ed1c24, transparent);
+    width: 100%;
+    margin: 15px 0;
+}
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.tabs h2 {
+    cursor: pointer;
+    font-size: 1.2em;
+    color: #888;
+    transition: 0.3s;
+}
+
+.tabs h2.active, .tabs h2:hover {
+    color: #ed1c24;
+    text-shadow: 0 0 5px #ed1c24;
+}
+
+/* Vyhledávání */
+.search-bar {
+    margin-bottom: 40px;
+}
+
+.search-bar input {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    width: 300px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.search-bar input:focus {
+    border-color: #ed1c24;
+    box-shadow: 0 0 10px rgba(237, 28, 36, 0.3);
+}
+
+/* Grid s filmy */
+.film-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.film-card {
+    background: #151515;
+    border-radius: 15px;
+    overflow: hidden;
+    border: 1px solid #222;
+    transition: transform 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.film-card:hover {
+    transform: translateY(-5px);
+    border-color: #444;
+}
+
+.poster-wrapper {
+    position: relative;
+    height: 350px;
+}
+
+.poster-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.year {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(237, 28, 36, 0.8);
+    padding: 2px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.film-info {
+    padding: 20px;
+}
+
+.film-info h3 {
+    color: #ed1c24;
+    margin-bottom: 10px;
+    font-size: 1.5em;
+}
+
+.description {
+    font-size: 0.9em;
+    color: #aaa;
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
+/* Bubliny s hodnocením */
+.ratings {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.rating-bubble {
+    flex: 1;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.rating-bubble.honza {
+    background: rgba(0, 123, 255, 0.1);
+    border: 1px solid #007bff;
+}
+
+.rating-bubble.barca {
+    background: rgba(255, 0, 150, 0.1);
+    border: 1px solid #ff0096;
+}
+
+.author {
+    font-size: 0.7em;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+    color: #eee;
+}
+
+.score {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+footer {
+    margin-top: 50px;
+    padding: 20px;
+    color: #555;
+    font-size: 0.8em;
+}
