@@ -49,14 +49,15 @@ h1 {
     gap: 30px;
 }
 
-.tabs h2 {
+.tabs a {
     cursor: pointer;
     font-size: 1.2em;
     color: #888;
     transition: 0.3s;
+    text-decoration: none;
 }
 
-.tabs h2.active, .tabs h2:hover {
+.tabs a.active, .tabs a:hover {
     color: #ed1c24;
     text-shadow: 0 0 5px #ed1c24;
 }
@@ -134,7 +135,6 @@ h1 {
 
 .film-info h3 {
     color: #ed1c24;
-    margin-bottom: 10px;
     font-size: 1.5em;
 }
 
@@ -145,9 +145,74 @@ h1 {
     line-height: 1.4;
 }
 
+.text-reviews {
+    margin-top: 15px;
+    font-size: 0.9em;
+    font-style: italic;
+    color: #ccc;
+    border-top: 1px solid #333;
+    padding-top: 10px;
+}
+.review {
+    margin-bottom: 10px;
+}
+
+/* Prázdná zpráva */
+.empty-message {
+    grid-column: 1 / -1; /* Roztáhne se přes celou mřížku karet */
+    text-align: center;
+    padding: 50px 20px;
+    color: #ed1c24; /* Hororová červená */
+    text-shadow: 0 0 15px rgba(237, 28, 36, 0.5);
+    letter-spacing: 5px;
+}
+
+.empty-message p {
+    font-size: 2em;
+    margin-bottom: 10px;
+    font-family: 'SuperMystery', sans-serif;
+}
+
+/* Zobrazení popisku */
+summary {
+    cursor: pointer;
+    font-weight: bold;
+    color: #ff4d4d; 
+    padding: 10px 0;
+    outline: none;
+    list-style: none; /* Schová výchozí šipku v některých prohlížečích */
+}
+
+/* Přidání vlastní šipky před text */
+summary::before {
+    content: '▶ ';
+    font-size: 0.8em;
+    transition: transform 0.2s;
+    display: inline-block;
+}
+
+/* Otočení šipky při otevření */
+details[open] summary::before {
+    transform: rotate(90deg);
+}
+
+/* Styl pro samotný text popisu */
+.description-content {
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 5px;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.description-container {
+    margin-bottom: 10px;
+}
+
 /* Bubliny s hodnocením */
 .ratings {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     gap: 10px;
 }
@@ -188,4 +253,143 @@ footer {
     padding: 20px;
     color: #555;
     font-size: 0.8em;
+}
+
+/* ---------------------------
+        AddForm.css 
+--------------------------- */
+/* Kontejner pro celý formulář */
+.addform h1 {
+    margin-bottom: 10px;
+}
+
+.addform a {
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 1.2em;
+    color: #888;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+.addform a:hover {
+    color: #ed1c24;
+    text-shadow: 0 0 5px #ed1c24;
+}
+
+.add-form {
+    background: #151515;
+    padding: 40px;
+    border-radius: 15px;
+    border: 1px solid #222;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Nadpisy v sekcích (Honza/Barča) */
+.add-form h3 {
+    font-family: 'SuperMystery', sans-serif;
+    color: #ed1c24;
+    margin: 25px 0 15px 0;
+    letter-spacing: 2px;
+    border-bottom: 1px solid rgba(237, 28, 36, 0.2);
+    padding-bottom: 5px;
+}
+
+/* Společný styl pro inputy a textarey */
+.add-form input[type="text"],
+.add-form input[type="number"],
+.add-form textarea {
+    width: 100%;
+    background: #0a0a0a;
+    border: 1px solid #333;
+    color: #e0e0e0;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    font-family: inherit;
+    outline: none;
+    transition: 0.3s;
+}
+
+/* Efekt při kliknutí do políčka */
+.add-form input:focus,
+.add-form textarea:focus {
+    border-color: #ed1c24;
+    box-shadow: 0 0 10px rgba(237, 28, 36, 0.2);
+}
+
+/* Textarea (popis a komentáře) */
+.add-form textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+/* Stylování radio buttonů (Stav) */
+.status-selection {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 25px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.status-selection label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #888;
+    transition: 0.3s;
+}
+
+.status-selection input[type="radio"]:checked + span, 
+.status-selection label:hover {
+    color: #ed1c24;
+}
+
+/* Hlavní odesílací tlačítko */
+.add-form button[type="submit"] {
+    width: 100%;
+    background: #ed1c24;
+    color: white;
+    border: none;
+    padding: 15px;
+    font-size: 1.2em;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 20px;
+}
+
+.add-form button[type="submit"]:hover {
+    background: #ff2e38;
+    box-shadow: 0 0 20px rgba(237, 28, 36, 0.4);
+    transform: scale(1.02);
+}
+
+/* Odkaz zpět */
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #666;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.back-link:hover {
+    color: #ed1c24;
+}
+
+/* Čára pro oddělení sekcí */
+hr {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #333, transparent);
+    margin: 30px 0;
 }
