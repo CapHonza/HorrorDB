@@ -1,4 +1,4 @@
-<?php require 'db.php'; 
+<?php require 'db.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Získání dat z formuláře
     $nazev = $_POST['nazev'];
@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'popis' => $popis,
         'stav' => $stav
     ]);
-        
+
     // Získává ID právě vloženého filmu pro následné vložení hodnocení
     $filmy_id = $conn->lastInsertId();
 
@@ -24,21 +24,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt_h = $conn->prepare($sql_hodnoceni);
 
     // Hodnocení Honza (vkládá se pouze, pokud se vyplní body a komentář)
-    if (!empty($_POST['body_honza']) || !empty($_POST['komentar_honza'])) {
+    // && $stav == 1 -> tichý bodyguard i když by díky JS nebyl potřeba => Defense in Depth
+    if ((!empty($_POST['body_honza']) || !empty($_POST['komentar_honza'])) && $stav == 1) {
         $stmt_h->execute([
             'filmy_id' => $filmy_id,
             'autor' => 'Honza',
-            'body' => (int)$_POST['body_honza'],
+            'body' => (float)$_POST['body_honza'],
             'komentar' => $_POST['komentar_honza']
         ]);
     }
 
-    // Hodnicení Barča 
-    if (!empty($_POST['body_barca']) || !empty($_POST['komentar_barca'])) {
+    // Hodnocení Barča 
+    // && $stav == 1 -> tichý bodyguard i když by díky JS nebyl potřeba => Defense in Depth
+    if ((!empty($_POST['body_barca']) || !empty($_POST['komentar_barca'])) && $stav == 1) {
         $stmt_h->execute([
             'filmy_id' => $filmy_id,
             'autor' => 'Barča',
-            'body' => (int)$_POST['body_barca'],
+            'body' => (float)$_POST['body_barca'],
             'komentar' => $_POST['komentar_barca']
         ]);
     }
@@ -50,12 +52,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 <!DOCTYPE html>
 <html lang="cs">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Přidat nový film</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <header class="addform">
         <h1>Pridat nový film</h1>
@@ -79,15 +83,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <hr>
 
             <h3>Hodnocení Honza</h3>
-            <input type="number" name="body_honza" placeholder="Hodnocení (1-10)" min="1" max="10">
+            <input type="number" name="body_honza" placeholder="Hodnocení (1-10)" min="1" max="10" step="0.1">
             <textarea name="komentar_honza" placeholder="Komentář"></textarea>
 
             <h3>Hodnocení Barča</h3>
-            <input type="number" name="body_barca" placeholder="Hodnocení (1-10)" min="1" max="10">
+            <input type="number" name="body_barca" placeholder="Hodnocení (1-10)" min="1" max="10" step="0.1">
             <textarea name="komentar_barca" placeholder="Komentář"></textarea>
 
             <button type="submit">Přidat film</button>
         </form>
     </main>
 </body>
+
 </html>
