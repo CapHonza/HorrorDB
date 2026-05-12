@@ -215,8 +215,33 @@ details[open] summary::before {
     flex-direction: column;
     justify-content: space-between;
     gap: 10px;
-}
 
+    /*
+        /* Uprava výšky komentářů + scrollbar 
+        max-height: 300px;
+        overflow-y: auto;
+        padding-right: 10px; /* Pro prostor pro scrollbar 
+
+        /* Firefox 
+            scrollbar-width: thin;
+            scrollbar-color: #ed1c24 #0a0a0a;
+
+        /* Stylování scrollbaru 
+        /* Safari/Edge/Chrome 
+        .ratings::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .ratings::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+
+        .ratings::-webkit-scrollbar-thumb {
+            background: #ed1c24;
+            border-radius: 10px;
+        }
+    */
+}
 .rating-bubble {
     flex: 1;
     padding: 10px;
