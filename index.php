@@ -26,12 +26,11 @@
             LEFT JOIN hodnoceni AS h_barca
                 ON filmy.id_filmy = h_barca.filmy_id
                 AND h_barca.autor = 'Barča'
-            WHERE filmy.stav = :stav AND filmy.nazev LIKE :search
+            WHERE filmy.stav = :stav 
             ORDER BY filmy.nazev ASC";
     $stmt = $conn->prepare($sql);
     $stmt->execute([
         'stav' => $filtr_stav,
-        'search' => '%' . $search_text . '%'
     ]);
 
     $filmy = $stmt->fetchAll();
@@ -60,11 +59,10 @@
         <div class="line"></div>
     </header>
 
-    <main>
-        <form action="index.php" method="GET" class="search-bar">    
-            <input type="text" name="search" placeholder="Hledat horor..." value="<?php echo $_GET['search'] ?? ''; ?>">
-        </form>
-
+    <main>   
+        <div class="search-bar">
+            <input id="search-input" type="text" placeholder="Hledat horor...">
+        </div>
         <section class="film-grid">
             <?php if (!empty($filmy)): ?> <!-- Pokud v poli něco je, PHP vypíše filmy -->
                 <?php foreach ($filmy as $film): ?>
@@ -124,5 +122,23 @@
     <footer>
         <p>© 2026 Jan Čáp | GitHub <img src="Pictures/icons8-github-48.png" alt="GitHub" width="15"></p>
     </footer>
+    <script>
+        // Automatické vyhledávání
+        const searchInput = document.getElementById('search-input');
+        const filmCard = document.querySelectorAll('.film-card');
+
+        searchInput.addEventListener('input', function (filmSearch) {
+            let filterText = searchInput.value.toLowerCase();
+
+            filmCard.forEach(function(card) {
+                let movieName = card.querySelector('h3').textContent.toLowerCase();
+                if (movieName.includes(filterText)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            })
+        });
+    </script>
 </body>
 </html>

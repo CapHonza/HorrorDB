@@ -81,18 +81,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </label>
 
             <hr>
+            <div id="rating-box">
+                <h3>Hodnocení Honza</h3>
+                <input type="number" name="body_honza" placeholder="Hodnocení (1-10)" min="1" max="10" step="0.1">
+                <textarea name="komentar_honza" placeholder="Komentář"></textarea>
 
-            <h3>Hodnocení Honza</h3>
-            <input type="number" name="body_honza" placeholder="Hodnocení (1-10)" min="1" max="10" step="0.1">
-            <textarea name="komentar_honza" placeholder="Komentář"></textarea>
-
-            <h3>Hodnocení Barča</h3>
-            <input type="number" name="body_barca" placeholder="Hodnocení (1-10)" min="1" max="10" step="0.1">
-            <textarea name="komentar_barca" placeholder="Komentář"></textarea>
-
+                <h3>Hodnocení Barča</h3>
+                <input type="number" name="body_barca" placeholder="Hodnocení (1-10)" min="1" max="10" step="0.1">
+                <textarea name="komentar_barca" placeholder="Komentář"></textarea>
+            </div>
             <button type="submit">Přidat film</button>
         </form>
     </main>
+    <script>
+        // Inteligentní formulář (schovává/ukazuje hodnocení podle toho, kam chcem film zařadit)
+        const ratingBox = document.getElementById('rating-box');
+        const radioButtons = document.querySelectorAll('input[name="stav"]');
+
+        function ratingToggle () {
+            let chosenValue = document.querySelector('input[name="stav"]:checked').value;
+            if (chosenValue === "1") { // Z HTML jde vždy string, proto porovnávám string ("1") a ne INT (1)
+                ratingBox.style.display = 'block'; // Ukáže box
+            } else {
+                ratingBox.style.display = 'none'; // Schová box
+            }
+        }
+
+        radioButtons.forEach(function(radio) {
+            radio.addEventListener('change', ratingToggle);
+        });
+        ratingToggle();
+    </script>
 </body>
 
 </html>
