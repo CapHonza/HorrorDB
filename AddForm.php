@@ -52,14 +52,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 <!DOCTYPE html>
 <html lang="cs">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Přidat nový film</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
     <header class="addform">
         <h1>Pridat nový film</h1>
@@ -93,6 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <button type="submit">Přidat film</button>
         </form>
     </main>
+    
     <script>
         // Inteligentní formulář (schovává/ukazuje hodnocení podle toho, kam chcem film zařadit)
         const ratingBox = document.getElementById('rating-box');
@@ -113,5 +112,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ratingToggle();
     </script>
 </body>
-
 </html>

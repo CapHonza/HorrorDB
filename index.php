@@ -40,7 +40,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hororová Databáze</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
     <header>
@@ -68,12 +68,22 @@
                 <?php foreach ($filmy as $film): ?>
                     <div class="film-card">
                         <div class="poster-wrapper">
-                            <img src="https://m.media-amazon.com/images/M/MV5BMTAzMDk1ODIyNDleQTJeQWpwZ15BbWU4MDAzNzY1MzMx._V1_.jpg" alt="Plakát">
+                            <img src="" alt="Plakát" class="film-poster" data-title="<?php echo htmlspecialchars($film['nazev']); ?>">
                             <span class="year"><?php echo $film ['rok']; ?></span>
                         </div>
                         
                         <div class="film-info">
-                            <h3><?php echo $film ['nazev']; ?></h3>
+                            <div class="film-header">
+                                <h3><?php echo htmlspecialchars($film['nazev']); ?></h3>
+                                <div class="edit-buttons">
+                                    <a href="EditForm.php?id=<?php echo $film['id_filmy']; ?>" class="btn-edit">
+                                        <img src="Pictures/EditIcon50.png" alt="Upravit" width="24">
+                                    </a>
+                                    <a href="Delete.php?id=<?php echo $film['id_filmy']; ?>" onclick="return confirm('Opravdu chcete tento film trvale smazat? Zmizí i vaše hodnocení.')" class="delete-btn">
+                                        <img src="Pictures/DeleteIcon50.png" alt="Smazat" width="26">
+                                    </a>
+                                </div>
+                            </div>
                             <details class="description-container">
                                 <summary> Zobrazit popis...</summary>
                                 <div class="description-content">
@@ -95,16 +105,19 @@
                                         <?php echo isset($film['body_barca']) ? $film['body_barca'] : '-'; ?>/10
                                     </span>
                                 </div>
-                                <div class="text-reviews">
-                                    <!-- Komentář Honza -->
-                                    <?php if (!empty($film['komentar_honza'])): ?> <!-- !empty kontroluje, zda je komentář prázdný, a pokud není, zobrazí ho -->
-                                        <p class="review"><strong>Honza:</strong> "<?php echo $film['komentar_honza']; ?>"</p>
-                                    <?php endif; ?>
-                                    <!-- Komentář Barča -->
-                                    <?php if (!empty($film['komentar_barca'])): ?>
-                                        <p class="review"><strong>Barča:</strong> "<?php echo $film['komentar_barca']; ?>"</p>
-                                    <?php endif; ?>
-                                </div>
+                                <details class="reviews-container">
+                                    <summary> Zobrazit naše komentáře...</summary>
+                                    <div class="text-reviews">
+                                        <!-- Komentář Honza -->
+                                        <?php if (!empty($film['komentar_honza'])): ?> <!-- !empty kontroluje, zda je komentář prázdný, a pokud není, zobrazí ho -->
+                                            <p class="review"><strong>Honza:</strong> "<?php echo $film['komentar_honza']; ?>"</p>
+                                        <?php endif; ?>
+                                        <!-- Komentář Barča -->
+                                        <?php if (!empty($film['komentar_barca'])): ?>
+                                            <p class="review"><strong>Barča:</strong> "<?php echo $film['komentar_barca']; ?>"</p>
+                                        <?php endif; ?>
+                                    </div>
+                                </details>
                             </div>
                         </div>
                     </div>
@@ -138,6 +151,37 @@
                     card.style.display = 'none';
                 }
             })
+        });
+
+        // API pro načítání plakátů
+        const apiKey = 'dfd51d2f';
+        const posters = document.querySelectorAll('.film-poster');
+
+        posters.forEach(function(img) {
+            let title = img.getAttribute('data-title');
+            let url = 'https://www.omdbapi.com/?t=' + encodeURIComponent(title) + '&apikey=' + apiKey;
+
+            fetch(url)
+                .then(function(response) {
+                    return response.json(); // Rozbalení balíčku z API
+                })
+                .then(function(data) {
+                    if (data.Response === 'True' && data.Poster !== "N/A") {
+                        img.src = data.Poster;
+
+                        // Záchranná brzda: OMDb posílá mrtvý odkaz (Například u filmu The Borderlands)
+                        img.onerror = function() {
+                            img.src = 'Pictures/NotFound.jpg'
+                        };
+
+                    } else {
+                        // Film nenalezen (Pravděpodobně české názvy)
+                        img.src = 'Pictures/NotFound.jpg'
+                    }
+                })
+                .catch(function(error) {
+                    console.error('Chyba při stahování plakátu:', error);
+                });
         });
     </script>
 </body>

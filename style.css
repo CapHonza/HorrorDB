@@ -107,15 +107,65 @@ h1 {
     border-color: #444;
 }
 
-.poster-wrapper {
-    position: relative;
-    height: 350px;
+.film-header {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 10px; 
 }
 
-.poster-wrapper img {
+.film-header a {
+    text-decoration: none;
+}
+
+.btn-edit img {
+    transition: transform 0.2s ease, filter 0.2s ease;
+    filter: invert(1) brightness(0.8); /* Invertuje černou na bílou a trochu ji ztlumí, ať nesvítí moc */
+
+    margin-top: 2px;
+}
+
+.btn-edit:hover img, .delete-btn:hover img {
+    transform: scale(1.1); /* Ikonka se lehce zvětší */
+    /* Obarví se do červena */ 
+    filter: invert(18%) sepia(87%) saturate(5151%) hue-rotate(348deg) brightness(97%) contrast(93%);
+}
+
+.edit-buttons {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.edit-buttons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.edit-buttons a img {
+    display: block;
+}
+
+.poster-wrapper {
+    position: relative;
+    height: 420px; /* Filmové plakáty jsou obdélníky na výšku. 420px jim sedne líp než 350px. */
+    background-color: #0d0d0d; /* Ultra tmavé pozadí, které tam je, než API plakát vůbec dodá */
+    border-bottom: 1px solid #222; /* Decentní linka, co oddělí obrázek od popisku */
+    overflow: hidden; 
+}
+
+.film-poster {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: cover; 
+    object-position: center top; /* U plakátů je důležitý střed a vršek. Spodek se dá oříznout. */
+    transition: transform 0.5s ease, filter 0.5s ease; /* Plynulá příprava pro animaci */
+}
+
+.film-card:hover .film-poster {
+    transform: scale(1.08); /* Jemný zoom dovnitř */
+    filter: brightness(0.8); /* Trochu se ztlumí, ať vyniknou ty červené texty dole */
 }
 
 .year {
@@ -146,12 +196,9 @@ h1 {
 }
 
 .text-reviews {
-    margin-top: 15px;
     font-size: 0.9em;
     font-style: italic;
     color: #ccc;
-    border-top: 1px solid #333;
-    padding-top: 10px;
 }
 .review {
     margin-bottom: 10px;
@@ -174,7 +221,7 @@ h1 {
 }
 
 /* Zobrazení popisku */
-summary {
+.description-container summary {
     cursor: pointer;
     font-weight: bold;
     color: #ff4d4d; 
@@ -184,7 +231,7 @@ summary {
 }
 
 /* Přidání vlastní šipky před text */
-summary::before {
+.description-container summary::before {
     content: '▶ ';
     font-size: 0.8em;
     transition: transform 0.2s;
@@ -242,6 +289,38 @@ details[open] summary::before {
         }
     */
 }
+
+.reviews-container {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.reviews-container summary {
+    color: #888; 
+    font-size: 0.9em;
+    transition: color 0.2s ease;
+    list-style: none;
+}
+
+.reviews-container summary::before {
+    content: '▶ ';
+    font-size: 0.8em;
+    transition: transform 0.2s;
+    display: inline-block;
+}
+
+.reviews-container summary:hover {
+    color: #ed1c24; 
+}
+
+.reviews-container[open] .text-reviews {
+    background: rgba(255, 255, 255, 0.05); 
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 10px;
+    border-top: none; /* Zrušíme starou horní čáru, v téhle bublině už není potřeba */
+}
+
 .rating-bubble {
     flex: 1;
     padding: 10px;
