@@ -118,17 +118,36 @@ h1 {
     text-decoration: none;
 }
 
-.btn-edit img {
-    transition: transform 0.2s ease, filter 0.2s ease;
-    filter: invert(1) brightness(0.8); /* Invertuje černou na bílou a trochu ji ztlumí, ať nesvítí moc */
-
-    margin-top: 2px;
+/* Základní stav obou obrázků */
+.btn-edit img,
+.delete-btn img {
+    display: block; /* Proti textovým okrajům */
+    transition: transform 0.2s ease, filter 0.2s ease; /* Plynulost pro oba */
+    
+    /* Vynucení GPU (Obrana proti rozmazání) */
+    backface-visibility: hidden; 
+    transform: translateZ(0);
+    will-change: transform;
 }
 
-.btn-edit:hover img, .delete-btn:hover img {
-    transform: scale(1.1); /* Ikonka se lehce zvětší */
-    /* Obarví se do červena */ 
+/* Specifické nastavení pro edit button (je v základu tmavá) */
+.btn-edit img {
+    filter: invert(1) brightness(0.8); /* Udělá ji bílo-šedou */
+    margin-top: 2px; /* Jemné vertikální srovnání */
+}
+
+/* Hover na edit (generuje vivid červenou) */
+.btn-edit:hover img {
+    transform: scale(1.1) translateZ(0);
     filter: invert(18%) sepia(87%) saturate(5151%) hue-rotate(348deg) brightness(97%) contrast(93%);
+}
+
+/* Hover na delete */
+.delete-btn:hover img {
+    transform: scale(1.1) translateZ(0);
+    
+    /* Zvýšení sytosti při hoveru -> cílem je se přiblížit edit buttonu */
+    filter: saturate(200%); 
 }
 
 .edit-buttons {
@@ -141,10 +160,6 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.edit-buttons a img {
-    display: block;
 }
 
 .poster-wrapper {
