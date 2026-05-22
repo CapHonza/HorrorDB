@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <p class="error-msg"><?php echo $chyba; ?></p>
             <?php endif; ?>
 
-            <form action="Login.php" method="POST">
+            <form action="login.php" method="POST">
                 <input type="password" name="heslo" placeholder="Heslo..." required 
                     style="width: 100%; background: #0a0a0a; border: 1px solid #333; color: #e0e0e0; padding: 12px 15px;
                     margin-bottom: 20px; border-radius: 8px; outline: none; font-family: inherit;">
