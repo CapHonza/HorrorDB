@@ -1,4 +1,11 @@
 <?php 
+session_start();
+if (!isset($_SESSION['prihlasen']) || $_SESSION['prihlasen'] !== true) {
+    header('Location: login.php');
+    exit;
+}
+?>
+<?php 
 require 'db.php';
 
 // Kontrola, jestli přišlo ID filmu, který chci smazat

@@ -1,3 +1,10 @@
+<?php 
+session_start();
+if (!isset($_SESSION['prihlasen']) || $_SESSION['prihlasen'] !== true) {
+    header('Location: login.php');
+    exit;
+}
+?>
 <?php require 'db.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Získání dat z formuláře
@@ -57,6 +64,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Přidat nový film</title>
     <link rel="stylesheet" href="style.css">
+    <!--- Favicony --->
+    <link rel="icon" type="image/png" sizes="16x16" href="Favicons/Favicon16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="Favicons/Favicon32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="Favicons/Favicon96.png"> 
 </head>
 <body>
     <header class="addform">

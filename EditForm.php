@@ -1,4 +1,11 @@
 <?php 
+session_start();
+if (!isset($_SESSION['prihlasen']) || $_SESSION['prihlasen'] !== true) {
+    header('Location: login.php');
+    exit;
+}
+?>
+<?php 
 require 'db.php'; // Připojení k databázi
 
 // Kontrola, jestli uživatel přišel formulářem (POSTem)
@@ -154,6 +161,10 @@ foreach ($hodnoceni_vse as $h) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upravit film: <?php echo htmlspecialchars($film['nazev']); ?></title>
     <link rel="stylesheet" href="style.css">
+    <!--- Favicony --->
+    <link rel="icon" type="image/png" sizes="16x16" href="Favicons/Favicon16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="Favicons/Favicon32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="Favicons/Favicon96.png"> 
 </head>
 <body>
     <header class="addform">

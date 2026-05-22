@@ -1,4 +1,10 @@
-<!DOCTYPE html>
+<?php 
+session_start();
+if (!isset($_SESSION['prihlasen']) || $_SESSION['prihlasen'] !== true) {
+    header('Location: login.php');
+    exit;
+}
+?>
 <?php require 'db.php'; // Připojení k databázi
     // Stav pro zobrazení pouze viděných filmů
     $filtr_stav = 1; // 1 = Viděli jsme, 0 = Chceme vidět
@@ -35,12 +41,17 @@
 
     $filmy = $stmt->fetchAll();
 ?>
+<!DOCTYPE html>
 <html lang="cs">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hororová Databáze</title>
     <link rel="stylesheet" href="style.css?v=6">
+    <!--- Favicony --->
+    <link rel="icon" type="image/png" sizes="16x16" href="Favicons/Favicon16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="Favicons/Favicon32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="Favicons/Favicon96.png"> 
 </head>
 <body>
     <header>
@@ -55,6 +66,7 @@
                 [ Chceme vidět ]
             </a>
             <a href="AddForm.php" class="btn_add">[ Přidat nový horror ]</a>
+            <a href="logout.php">[ Odhlásit se ]</a>
         </nav>
         <div class="line"></div>
     </header>
