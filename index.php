@@ -65,7 +65,7 @@ if (!isset($_SESSION['prihlasen']) || $_SESSION['prihlasen'] !== true) {
             <a href="index.php?stav=0" class="<?php echo ($filtr_stav == 0) ? 'active' : ''; ?>">
                 [ Chceme vidět ]
             </a>
-            <a href="AddForm.php" class="btn_add">[ Přidat nový horror ]</a>
+            <a href="AddForm.php" class="btn_add">[ Přidat nový horor ]</a>
             <a href="logout.php">[ Odhlásit se ]</a>
         </nav>
         <div class="line"></div>
