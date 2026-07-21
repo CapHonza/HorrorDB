@@ -138,7 +138,7 @@ if (!isset($_SESSION['prihlasen']) || $_SESSION['prihlasen'] !== true) {
                 <!-- Pokud v poli není nic, PHP vypíše tenhle text -->
                 <div class="empty-message">
                     <p>Nic na seznamu. Chce to najít nový horor!</p>
-                    <img src="Pictures/Scream.png" alt="Scream" style="max-width: 600px;">
+                    <img src="Pictures/Scream.png" alt="Scream">
                 </div>
             <?php endif; ?>
         </section>

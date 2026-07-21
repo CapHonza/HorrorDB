@@ -235,6 +235,11 @@ h1 {
     font-family: 'SuperMystery', sans-serif;
 }
 
+.empty-message img {
+    max-width: 100%;
+    height: auto;
+}
+
 /* Zobrazení popisku */
 .description-container summary {
     cursor: pointer;
@@ -511,4 +516,31 @@ hr {
     height: 1px;
     background: linear-gradient(90deg, transparent, #333, transparent);
     margin: 30px 0;
+}
+
+/* Responsove exceptions */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2em;
+    }
+
+    .tabs {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+
+    .search-bar {
+        display: flex;
+        justify-content: center;
+    }
+
+    .search-bar input {
+        max-width: 90%;
+    }
+
+    .film-grid {
+        grid-template-columns: 1fr;
+        max-width: 600px;
+    }
 }
